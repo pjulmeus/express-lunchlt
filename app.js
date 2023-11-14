@@ -1,20 +1,26 @@
 /** Express app for Lunchly. */
 
 const express = require("express");
+/// nunjucks works just like jnja but for node.js
 const nunjucks = require("nunjucks");
 const bodyParser = require("body-parser");
 const routes = require("./routes");
+
 
 const app = express();
 
 // Parse body for urlencoded (non-JSON) data
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// app.use("/customer", routes);
+// app.use("/invoices", invoicesRoutes)
+
 nunjucks.configure("templates", {
   autoescape: true,
   express: app
 });
 
+app._router
 app.use(routes);
 
 /** 404 handler */

@@ -52,9 +52,11 @@ router.get("/:id/", async function(req, res, next) {
   try {
     const customer = await Customer.get(req.params.id);
 
+    const names = customer.fullName()
+
     const reservations = await customer.getReservations();
 
-    return res.render("customer_detail.html", { customer, reservations });
+    return res.render("customer_detail.html", { customer, reservations, names });
   } catch (err) {
     return next(err);
   }
@@ -66,7 +68,9 @@ router.get("/:id/edit/", async function(req, res, next) {
   try {
     const customer = await Customer.get(req.params.id);
 
-    res.render("customer_edit_form.html", { customer });
+    const names = customer.fullName()
+
+    res.render("customer_edit_form.html", { customer, names});
   } catch (err) {
     return next(err);
   }
